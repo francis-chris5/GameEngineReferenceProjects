@@ -1,0 +1,68 @@
+
+
+Lighting:
+    ambient light does not seem to illuminate model
+    direction in sun is where it comes from not where it goes
+
+
+
+Models:
+    Blender:
+        set animations to have fake user, and click stash
+        export as embedded gltf
+    AnimComposer may bug out directly from spatial, cast body to a node then child 0 refers to the spatial
+
+
+Movement:
+    track the orientation as a vector 3 for forward and backward 
+    use the .rotate() thing on the spatial not the node
+    then grab the spatial's quaternion rotation around the appropriate axis for the orientation (probably z if on ground)
+    
+
+
+
+
+Movement:
+            
+    /**
+     * This one worked pretty good for non-physics yaw-picth-roll and forward-backward movement
+     * The turns glitch out pretty bad with physics applied though.
+     * @param direction
+     * @param timePerFrame 
+     */
+    public void move(String direction, float timePerFrame){
+        if(direction.equals("walk-forward")){
+            Vector3f position = this.getLocalTranslation();
+            Vector3f move = new Vector3f(
+                    position.x + orientation.x * speed * timePerFrame,
+                    position.y + orientation.y * speed * timePerFrame,
+                    position.z + orientation.z * speed * timePerFrame
+            );
+            this.setLocalTranslation(move);
+            
+            
+        }
+        else if(direction.equals("walk-backward")){
+            Vector3f position = this.getLocalTranslation();
+            Vector3f move = new Vector3f(
+                    position.x - orientation.x * speed * timePerFrame,
+                    position.y - orientation.y * speed * timePerFrame,
+                    position.z - orientation.z * speed * timePerFrame
+            );
+            //this.setLocalTranslation(move);
+        }
+        else if(direction.equals("turn-left")){
+            float turn = angularSpeed * timePerFrame;
+            this.body.rotate(0, orientation.y+turn, 0);
+            this.body.getLocalRotation().getRotationColumn(2, orientation);
+        }
+        else if(direction.equals("turn-right")){
+            float turn = -angularSpeed * timePerFrame;
+            this.body.rotate(0, orientation.y+turn, 0);
+            this.body.getLocalRotation().getRotationColumn(2, orientation);
+        }
+    }//end move()
+    
+
+
+
