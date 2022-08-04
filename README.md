@@ -46,6 +46,7 @@ By far the best online community for support and tutorials. Multiple rendering p
 
 The scene heirarchy is a parent/child while the overall game heirarchy is a graph, all custom game objects must be a subclass of Unity's starting point. Otherwise layers and collision groups from bullet physics, fully configurable input manager (though it's probably already configured for about any input device you can name).
 
+(( please ignore the quality of animations here, I had to make and then use these while talking and under the time constraints of a classroom lecture, I was only describing the proccess here, i'll try and update the imagery at some point in the future ))
 
 <br><br>
 <h2>Unreal</h2>
