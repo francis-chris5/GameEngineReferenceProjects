@@ -17,6 +17,8 @@ OpenGL libraries/modules and Physics Bullet engine are included in the install f
 <h2>Panda3D</h2>
 Ease of use of Python game development, but it's actually a c-wrapper, so decent speed. The rendering pipeline was created for a cartoonish style game by disney, but sometimes that's enough.
 
+For models, export a .glb from blender then use the custom python module "gltf2bam" to convert it to a .bam model.
+
 <br><br>
 
 <h2>jMonkey</h2>
@@ -26,6 +28,7 @@ Full code based (download the libararies and include in a project) or GUI based 
 
 The scene/game hierarchy (this is by far the easiest engine to keep all stats moving level to level) is a tree structure, so at least in my mind it made sense to make all custom game objects a subclass of their Node. Since Java only passes by reference, accessing things like the asset and input managers from within any particular object is still the original for the game so memory consumption grows very slowly as the games get large. In short there are a lot of internal and external things about jMonkey that make it an outstanding option for game development.
 
+Export a .gltf file from blender for models (no .glb use either a gltf+bin+texture or an embedded .gltf file) and importing into the SDK will automatically convert it to the .j3o file (that is an 'o' not a zero, I have made that typo so many times).
 
 <br><br>
 
