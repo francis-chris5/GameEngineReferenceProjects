@@ -3,6 +3,8 @@ I tend to not stick with a single game engine, so this repository is a collectio
 
 Definitely just starting points here. For the most part these projects just get a character moving around the scene in the way that made the most since to me after examining documentation on: which rendering library provided the parent classes to form the basis of the pipelines (they're almost all OpenGL), which physics engine provided the parent classes to form the basis of the interaction of forces in their simulations (most of these have bullet as default and are comapatible with bullet if it's not the default), and what datastructure provides the primary organization for the scene heirarchy (seems to be an even split between parent/child and trees for the most part in these engines).
 
+The files on this repository are reference material for starting points, and certainly not fully debugged games.
+
 
 <h2>PyGame</h2>
 If it's a 2D game and speed is not of the upmost concern why make it any more difficult than it needs to be...
