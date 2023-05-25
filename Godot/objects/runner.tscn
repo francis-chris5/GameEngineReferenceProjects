@@ -1,0 +1,99 @@
+[gd_scene load_steps=16 format=3 uid="uid://btixn4s62j555"]
+
+[ext_resource type="Script" path="res://scripts/runner.gd" id="1_q8vot"]
+[ext_resource type="PackedScene" uid="uid://be30y6pdqth0r" path="res://assets/runner.gltf" id="2_rysdo"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cyjan"]
+animation = &"hurdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3w526"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dt4ll"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pemes"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1cynf"]
+advance_mode = 2
+advance_condition = &"is_running"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8j4y"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lunfn"]
+advance_mode = 2
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ho5nv"]
+advance_mode = 2
+advance_condition = &"is_running"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cmbad"]
+advance_mode = 2
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_48qa7"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k4jqv"]
+states/Start/position = Vector2(176, 106.667)
+states/hurdle/node = SubResource("AnimationNodeAnimation_cyjan")
+states/hurdle/position = Vector2(610.667, 150)
+states/idle/node = SubResource("AnimationNodeAnimation_3w526")
+states/idle/position = Vector2(366.667, 70)
+states/run/node = SubResource("AnimationNodeAnimation_dt4ll")
+states/run/position = Vector2(374.667, 179.333)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_pemes"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_1cynf"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_u8j4y"), "run", "hurdle", SubResource("AnimationNodeStateMachineTransition_lunfn"), "hurdle", "run", SubResource("AnimationNodeStateMachineTransition_ho5nv"), "idle", "hurdle", SubResource("AnimationNodeStateMachineTransition_cmbad"), "hurdle", "idle", SubResource("AnimationNodeStateMachineTransition_48qa7")]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_dr6gt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jqm68"]
+size = Vector3(1, 1.85, 1)
+
+[node name="runner" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.8786, 2.76474, 0)
+script = ExtResource("1_q8vot")
+jump_speed = 5.2
+
+[node name="mesh" parent="." instance=ExtResource("2_rysdo")]
+
+[node name="Skeleton3D" parent="mesh/Armature" index="0"]
+bones/3/rotation = Quaternion(-0.0507494, 0.0184907, 0.025933, 0.998204)
+bones/5/rotation = Quaternion(-0.209369, -0.26251, -0.470975, 0.815742)
+bones/9/rotation = Quaternion(0.0354189, 0.264981, 0.41674, 0.868826)
+bones/13/rotation = Quaternion(-0.498002, 0.12022, -0.20247, 0.834594)
+bones/14/rotation = Quaternion(-0.022696, -0.000391918, -0.0389924, 0.998982)
+bones/16/rotation = Quaternion(-0.0549171, -0.0259799, 0.741175, 0.668557)
+bones/18/rotation = Quaternion(-0.527689, -0.139403, 0.198299, 0.814118)
+bones/19/rotation = Quaternion(0.0315382, 0.000402957, 0.033916, 0.998927)
+bones/21/rotation = Quaternion(-0.281735, -0.0781518, -0.64833, 0.702983)
+
+[node name="AnimationTree" type="AnimationTree" parent="mesh"]
+tree_root = SubResource("AnimationNodeStateMachine_k4jqv")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dr6gt")
+parameters/conditions/is_idle = false
+parameters/conditions/is_jumping = false
+parameters/conditions/is_running = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.187916, 0)
+shape = SubResource("BoxShape3D_jqm68")
+
+[node name="camera_mount" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="camera" type="Camera3D" parent="camera_mount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959634, 2.25305)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(2.6, 0, 0, 0, 2.6, 0, 0, 0, 2.6, 0, 0, 0)
+target_position = Vector3(0, -2, 0)
+collision_mask = 4
+
+[editable path="mesh"]

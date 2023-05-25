@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://77w2wabenomi"]
+
+[ext_resource type="PackedScene" uid="uid://cyotvn3vheyff" path="res://assets/bike.gltf" id="1_1nq7o"]
+[ext_resource type="Script" path="res://scripts/biker.gd" id="1_aijyx"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wtga1"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jd3py"]
+animation = &"riding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bfqdx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_optgd"]
+xfade_time = 0.4
+advance_mode = 2
+advance_condition = &"is_pedaling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qa6d8"]
+xfade_time = 0.4
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_05een"]
+states/idle/node = SubResource("AnimationNodeAnimation_wtga1")
+states/idle/position = Vector2(372, 74)
+states/riding/node = SubResource("AnimationNodeAnimation_jd3py")
+states/riding/position = Vector2(522.667, 108.667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bfqdx"), "idle", "riding", SubResource("AnimationNodeStateMachineTransition_optgd"), "riding", "idle", SubResource("AnimationNodeStateMachineTransition_qa6d8")]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_iqg32"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uq351"]
+size = Vector3(0.75, 1.5, 1.5)
+
+[node name="bike" type="CharacterBody3D"]
+script = ExtResource("1_aijyx")
+
+[node name="mesh" parent="." instance=ExtResource("1_1nq7o")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="mesh/Armature" index="0"]
+bones/0/rotation = Quaternion(-0.0191261, 0.0821611, 0.00265625, 0.996432)
+bones/3/rotation = Quaternion(0.116287, -0.0719878, 0.054063, 0.989127)
+bones/5/rotation = Quaternion(-0.369218, -0.0503285, -0.349753, 0.859545)
+bones/6/rotation = Quaternion(-0.0566497, 0.0176363, -0.128108, 0.989984)
+bones/9/rotation = Quaternion(-0.18897, 0.263254, 0.488835, 0.809956)
+bones/13/rotation = Quaternion(-0.301194, 0.176423, -0.0970581, 0.932061)
+bones/14/rotation = Quaternion(-0.190721, -0.0186869, -0.143513, 0.970917)
+bones/16/rotation = Quaternion(0.146709, -0.00437137, 0.268054, 0.952158)
+bones/18/rotation = Quaternion(-0.379368, -0.257267, -0.409253, 0.788927)
+bones/19/rotation = Quaternion(0.0406763, -0.213967, 0.66323, 0.716024)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_05een")
+anim_player = NodePath("../mesh/AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_iqg32")
+parameters/conditions/is_idle = false
+parameters/conditions/is_pedaling = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.123449, 0.302044)
+shape = SubResource("BoxShape3D_uq351")
+
+[node name="camera_mount" type="Node3D" parent="."]
+
+[node name="camera" type="Camera3D" parent="camera_mount"]
+transform = Transform3D(1, 0, 0, 0, 0.988103, 0.153796, 0, -0.153796, 0.988103, 0, 1.29598, 2.20992)
+
+[node name="right_ray" type="RayCast3D" parent="."]
+target_position = Vector3(2, 0, 0)
+collision_mask = 16
+
+[node name="left_ray" type="RayCast3D" parent="."]
+target_position = Vector3(-2, 0, 0)
+collision_mask = 16
+
+[editable path="mesh"]

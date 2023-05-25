@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://f61hxyx3h5ri"]
+
+[ext_resource type="PackedScene" uid="uid://dsf1xigme5hya" path="res://assets/gate.glb" id="1_kpyo0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bay1u"]
+size = Vector3(0.211366, 2.91889, 0.274258)
+
+[node name="gate" type="RigidBody3D" groups=["gates"]]
+collision_layer = 17
+collision_mask = 17
+lock_rotation = true
+
+[node name="mesh" parent="." instance=ExtResource("1_kpyo0")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28798, 0.293848, 0)
+shape = SubResource("BoxShape3D_bay1u")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29028, 0.293848, 0)
+shape = SubResource("BoxShape3D_bay1u")
+
+[editable path="mesh"]

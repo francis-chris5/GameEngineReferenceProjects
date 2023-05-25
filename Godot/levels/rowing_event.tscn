@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyylihldk8umg"]
+
+[ext_resource type="PackedScene" uid="uid://bfb72jkjajhrt" path="res://objects/skybox.tscn" id="1_60kvh"]
+[ext_resource type="PackedScene" uid="uid://ymrlt65yu0jg" path="res://objects/river.tscn" id="2_gxj0j"]
+[ext_resource type="PackedScene" uid="uid://bwu1t0rhdt68b" path="res://objects/boat.tscn" id="3_rdgm7"]
+[ext_resource type="PackedScene" uid="uid://0k6jj7ig6vma" path="res://objects/floating_flag.tscn" id="4_0hjf5"]
+[ext_resource type="PackedScene" uid="uid://dtlllhu72bb3j" path="res://objects/hud_panel.tscn" id="5_15bf1"]
+
+[node name="rowing_event" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.25, 0.0669874, -0.21344, 0.623035, 0.75251, 0.146392, -0.741166, 0.655166, 0, 2.37475, 6)
+shadow_enabled = true
+
+[node name="skybox" parent="." instance=ExtResource("1_60kvh")]
+
+[node name="river" parent="." instance=ExtResource("2_gxj0j")]
+
+[node name="boat" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("3_rdgm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561994, 0)
+hud = NodePath("../PanelContainer/TextEdit")
+
+[node name="floating_flag" parent="." instance=ExtResource("4_0hjf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.813, 0.45, -5.491)
+
+[node name="floating_flag2" parent="." instance=ExtResource("4_0hjf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0091, 0.45, 44.5873)
+
+[node name="floating_flag3" parent="." instance=ExtResource("4_0hjf5")]
+transform = Transform3D(-0.797215, 0, 0.603695, 0, 1, 0, -0.603695, 0, -0.797215, 5.13815, 0.45, -40.6403)
+
+[node name="floating_flag4" parent="." instance=ExtResource("4_0hjf5")]
+transform = Transform3D(0.301505, 0, -0.953465, 0, 1, 0, 0.953465, 0, 0.301505, 22.4735, 0, 27.6545)
+
+[node name="PanelContainer" parent="." instance=ExtResource("5_15bf1")]
+
+[editable path="PanelContainer"]

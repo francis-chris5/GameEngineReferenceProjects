@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://s7mbi54vhk4i"]
+
+[ext_resource type="PackedScene" uid="uid://bfb72jkjajhrt" path="res://objects/skybox.tscn" id="1_taieh"]
+[ext_resource type="PackedScene" uid="uid://mdnjgu0wrf65" path="res://objects/hills.tscn" id="2_5e865"]
+[ext_resource type="PackedScene" uid="uid://77w2wabenomi" path="res://objects/bike.tscn" id="3_88ta7"]
+[ext_resource type="PackedScene" uid="uid://dtlllhu72bb3j" path="res://objects/hud_panel.tscn" id="4_sloke"]
+[ext_resource type="PackedScene" uid="uid://f61hxyx3h5ri" path="res://objects/gate.tscn" id="5_3vnow"]
+
+[node name="biking_event" type="Node3D"]
+
+[node name="skybox" parent="." instance=ExtResource("1_taieh")]
+
+[node name="hills" parent="." instance=ExtResource("2_5e865")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0697565, 0.997564, 0, -0.997564, 0.0697565, 0, 12, 0)
+
+[node name="bike" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("3_88ta7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24082, 0)
+speed = 9.0
+hud = NodePath("../PanelContainer/TextEdit")
+
+[node name="gate" parent="." instance=ExtResource("5_3vnow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372745, 3.58203, -3.77997)
+
+[node name="gate2" parent="." instance=ExtResource("5_3vnow")]
+transform = Transform3D(0.689405, 0, 0.724376, 0, 1, 0, -0.724376, 0, 0.689405, -13.2295, 11.7483, 21.4854)
+
+[node name="gate3" parent="." instance=ExtResource("5_3vnow")]
+transform = Transform3D(-0.237398, 0, -0.971413, 0, 1, 0, 0.971413, 0, -0.237398, -26.5659, 11.3084, 2.97264)
+
+[node name="gate4" parent="." instance=ExtResource("5_3vnow")]
+transform = Transform3D(0.565917, 0, 0.824462, 0, 1, 0, -0.824462, 0, 0.565917, 27.4068, 10.1973, 10.5472)
+
+[node name="gate5" parent="." instance=ExtResource("5_3vnow")]
+transform = Transform3D(0.710689, 0, -0.703506, 0, 1, 0, 0.703506, 0, 0.710689, -20.322, 12, -10.11)
+
+[node name="PanelContainer" parent="." instance=ExtResource("4_sloke")]
+
+[editable path="PanelContainer"]

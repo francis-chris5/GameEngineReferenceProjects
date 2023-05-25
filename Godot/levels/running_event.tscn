@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://jrjyy7r3x7ks"]
+
+[ext_resource type="PackedScene" uid="uid://d880kpcvibp3" path="res://objects/track.tscn" id="1_jdm26"]
+[ext_resource type="PackedScene" uid="uid://btixn4s62j555" path="res://objects/runner.tscn" id="2_ww2aa"]
+[ext_resource type="PackedScene" uid="uid://bfb72jkjajhrt" path="res://objects/skybox.tscn" id="3_bs1pv"]
+[ext_resource type="PackedScene" uid="uid://hbhq1qv5c47w" path="res://objects/hurdle.tscn" id="4_hftcp"]
+[ext_resource type="PackedScene" uid="uid://dtlllhu72bb3j" path="res://objects/hud_panel.tscn" id="5_77o1m"]
+
+[node name="running_event" type="Node3D"]
+
+[node name="track" parent="." instance=ExtResource("1_jdm26")]
+
+[node name="runner" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("2_ww2aa")]
+speed = 8.0
+jump_speed = 4.5
+hud = NodePath("../PanelContainer/TextEdit")
+
+[node name="skybox" parent="." instance=ExtResource("3_bs1pv")]
+
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.841482, 0.24467, -0.481709, 0, 0.891584, 0.452855, 0.540284, -0.381069, 0.750253, 0, 3.31393, 0)
+shadow_enabled = true
+
+[node name="hurdle" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(-0.983299, 0, -0.181995, 0, 1, 0, 0.181995, 0, -0.983299, -27.6159, 2.05394, 20)
+
+[node name="hurdle2" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(-0.941258, 0, -0.337686, 0, 1, 0, 0.337686, 0, -0.941258, -26.6418, 2.05394, 30.0982)
+
+[node name="hurdle3" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(-0.927197, 0, -0.374574, 0, 1, 0, 0.374574, 0, -0.927197, -22.956, 2.05394, 35.2676)
+
+[node name="hurdle4" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(-0.906204, 0, -0.422839, 0, 1, 0, 0.422839, 0, -0.906204, -19.8739, 2.05394, 42.3603)
+
+[node name="hurdle5" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(0.831799, 0, -0.555077, 0, 1, 0, 0.555077, 0, 0.831799, 20.7371, 2.05394, 40.2867)
+
+[node name="hurdle6" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(0.831799, 0, -0.555077, 0, 1, 0, 0.555077, 0, 0.831799, 23.9233, 2.05394, 34.2736)
+
+[node name="hurdle7" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(0.831799, 0, -0.555077, 0, 1, 0, 0.555077, 0, 0.831799, 29.2821, 2.05394, 15.9998)
+
+[node name="hurdle8" parent="." instance=ExtResource("4_hftcp")]
+transform = Transform3D(0.831799, 0, -0.555077, 0, 1, 0, 0.555077, 0, 0.831799, 29.2821, 2.05394, -0.812304)
+
+[node name="PanelContainer" parent="." instance=ExtResource("5_77o1m")]
+
+[editable path="PanelContainer"]

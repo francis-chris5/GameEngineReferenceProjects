@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://bwu1t0rhdt68b"]
+
+[ext_resource type="Script" path="res://scripts/rower.gd" id="1_8eqgd"]
+[ext_resource type="PackedScene" uid="uid://g6p8cgluoxto" path="res://assets/boat.gltf" id="1_haf28"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rrog0"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2xf6d"]
+animation = &"rowing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aoolk"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vy16s"]
+advance_mode = 2
+advance_condition = &"is_rowing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_su5sv"]
+advance_mode = 2
+advance_condition = &"is_resting"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_oyh5f"]
+states/idle/node = SubResource("AnimationNodeAnimation_rrog0")
+states/idle/position = Vector2(342.667, 48.6667)
+states/rowing/node = SubResource("AnimationNodeAnimation_2xf6d")
+states/rowing/position = Vector2(445.333, 104.667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_aoolk"), "idle", "rowing", SubResource("AnimationNodeStateMachineTransition_vy16s"), "rowing", "idle", SubResource("AnimationNodeStateMachineTransition_su5sv")]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_rdfvs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_al27t"]
+size = Vector3(1.4, 0.65, 2.5)
+
+[node name="boat" type="CharacterBody3D" groups=["player"]]
+floor_max_angle = 0.174533
+script = ExtResource("1_8eqgd")
+
+[node name="boat" parent="." instance=ExtResource("1_haf28")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="boat/Armature" index="0"]
+bones/0/rotation = Quaternion(0.0506069, -0.051202, 0.00373252, 0.997398)
+bones/3/rotation = Quaternion(-0.162238, -0.0136556, -0.00274835, 0.986653)
+bones/5/rotation = Quaternion(-0.120887, -0.445459, -0.439319, 0.770683)
+bones/8/rotation = Quaternion(0.198731, 0.253882, 0.487578, 0.811368)
+bones/10/rotation = Quaternion(0.286364, 0.280597, 0.291692, 0.868434)
+bones/13/rotation = Quaternion(-0.202665, -0.446769, -0.428905, 0.758528)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_oyh5f")
+anim_player = NodePath("../boat/AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_rdfvs")
+parameters/conditions/is_resting = false
+parameters/conditions/is_rowing = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.387245)
+shape = SubResource("BoxShape3D_al27t")
+
+[node name="camera_mount" type="Node3D" parent="."]
+
+[node name="camera" type="Camera3D" parent="camera_mount"]
+transform = Transform3D(1, 0, 0, 0, 0.948523, 0.316709, 0, -0.316709, 0.948523, 0, 1.65747, 3.32182)
+
+[editable path="boat"]

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dtlllhu72bb3j"]
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_left = 68.0
+offset_top = 30.0
+offset_right = 358.0
+offset_bottom = 108.0
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 2
+text = "Score: 0
+Speed: 0"
+editable = false

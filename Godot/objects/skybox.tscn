@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfb72jkjajhrt"]
+
+[ext_resource type="Shader" path="res://materials/sky.gdshader" id="1_x6rph"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wp88m"]
+noise_type = 4
+frequency = 0.047
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mxw8t"]
+in_3d_space = true
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.14
+bump_strength = 17.0
+normalize = false
+noise = SubResource("FastNoiseLite_wp88m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc7c5"]
+shader = ExtResource("1_x6rph")
+shader_parameter/skycolor = Color(0.271185, 0.491323, 0.89424, 1)
+shader_parameter/horizon = Color(0.419608, 0.611765, 0.952941, 1)
+shader_parameter/cloud_color = Color(0.870588, 0.870588, 0.870588, 1)
+shader_parameter/normal = SubResource("NoiseTexture2D_mxw8t")
+
+[sub_resource type="Sky" id="Sky_c402y"]
+sky_material = SubResource("ShaderMaterial_fc7c5")
+
+[sub_resource type="Environment" id="Environment_igcvb"]
+background_mode = 2
+sky = SubResource("Sky_c402y")
+fog_enabled = true
+fog_light_energy = 0.02
+fog_sun_scatter = 0.3
+fog_density = 0.05
+fog_sky_affect = 0.005
+fog_height = 0.03
+fog_height_density = 0.3
+
+[node name="skybox" type="WorldEnvironment"]
+environment = SubResource("Environment_igcvb")
