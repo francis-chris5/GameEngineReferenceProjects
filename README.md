@@ -33,7 +33,13 @@ Export a .gltf file from blender for models (no .glb use either a gltf+bin+textu
 <br><br>
 
 <h2>GoDOT</h2>
-By far the best option if you're a linux user... more coming when a nice clean project for here is ready...
+This reference project is on Godot 4, with the annotations and big updates to the shaders that I don't think were in earlier versions. Out of box exports for desktop (with great linux options), Android, and VR, along with proprietary options for some consoles. Very easy to get a project going with quick, and this has kind of become my preference for introducing new students to game dev when teaching (my day job is teaching software development at a community college including game dev courses).
+
+Fully functional and customizable GUI, with Python-based script for game logic and OpenGL for scripting shaders --both allow dynamic inputs on main engine GUI from the scripts. Drag and drop from GUI to script as well, and [ctrl]+[click] on any function or variable pulls up the docs in the editor (including custom variables and functions when commented with two # signs).
+
+The hierarchy is nested trees, everything is a node, and a collection of nodes is a scene, and then a scene can be a node in another scene --this can be a little confusing at first.
+
+Export a .gltf file from Blender (.glb is okay for static models), materials come through okay --great with a little effort-- but Godot allows for multiple shaders so an easy override/mix with Blender materials. After importing the model as a .gltf make it the child of a rigidbody or characterbody --new updates to kinematicbody that comes with a controller script template-- and save as a scene, then use that scene in Godot.
 
 
 
